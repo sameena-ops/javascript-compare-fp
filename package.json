@@ -1,0 +1,22 @@
+{
+  "name": "vodqa-fp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel": "^6.23.0",
+    "mocha": "^9.2.2",
+    "node-fetch": "^3.2.3"
+  },
+  "type": "module",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {},
+  "keywords": [],
+  "description": ""
+}
