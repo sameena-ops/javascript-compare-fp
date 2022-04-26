@@ -1,5 +1,4 @@
 import * as client1   from "../utils/client1.json";
-import * as client2   from "./data_client2.js";
 
 
 
@@ -17,6 +16,51 @@ async function returnFile (){
     return client1;
 }
 
-//import * as data from './example.json';
-//const {name} = data;
-//console.log(name); // output 'testing'
+export const getStoresToBeSelected =  async (allStoreIds, numberOfStoresToSelect) => {
+
+    return allStoreIds.slice(0,numberOfStoresToSelect);
+}
+
+function selectFromDropDown(randomStoreNames) {
+    ///
+    ///
+    return true;
+}
+
+function selectRadioButtonFromDropdown(randomStoreNames) {
+    //
+    //
+    return true;
+
+}
+
+function selectCheckboxFromDropdown(randomStoreNames) {
+    //
+    //
+    return true;
+}
+
+export const selectStore =  async (clientId, randomStoreNames) => {
+   if(clientId===1) {
+       // .click
+       // .click
+       console.log(`Selected ${randomStoreNames} value from dropdown`)
+       return true;
+
+   }
+    else if(clientId===2)
+   {
+       // .click
+       // .click
+       console.log(`Selected ${randomStoreNames} radio button from dropdown `)
+       return true;
+
+   }   else if(clientId===3)
+   {
+       // .click
+       // .click
+       console.log(`Selected ${randomStoreNames} checkboxes from dropdwon`)
+       return true;
+
+   }
+}
