@@ -1,5 +1,5 @@
-import { returnResponse, handleError } from '../utils/evaluateResponse.js';
-import { evolve, merge } from 'ramda';
+import {returnResponse, handleError} from '../utils/evaluateResponse.js';
+import {evolve, merge} from 'ramda';
 
 import fetch from 'node-fetch';
 
@@ -24,11 +24,11 @@ const request = (options) => () => {
 };
 
 const customRequest = requestBuilder({
-    headers: { 'Content-Type': 'application/json' },
+    headers: {'Content-Type': 'application/json'},
 });
 
 export const sendGetRequest = (options) =>
-    customRequest(options)().then( returnResponse).catch(handleError);
+    customRequest(options)().then(returnResponse).catch(handleError);
 
 
 export const sendPostRequest = (options) =>

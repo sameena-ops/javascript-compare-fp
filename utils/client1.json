@@ -1,5 +1,7 @@
 {
-  "randomStoreId":"15",
+  "randomStoreId": "15",
   "storeName": "abc",
-  "noOfStoresToSelect": "1"
+  "noOfStoresToSelect": "1",
+  "clientId": "1",
+  "storeDisplayFieldName": "Select store"
 }

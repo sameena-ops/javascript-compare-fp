@@ -1,5 +1,5 @@
 import { requestAndEvaluate } from '../utils/evaluateResponse.js';
-import {curry, findLast, map, pipe, prop} from 'ramda';
+import {curry, findLast, map, pipe, prop, pluck, omit, head, pick,find, reduce} from 'ramda';
 import faker from 'faker';
 import fetch from "node-fetch";
 
@@ -38,17 +38,8 @@ export const randomId = async () => {
     return pipe(prop('data'), findLast(prop('id')))(response);
 };
 
-export const addStore = async () => {
-    let address = faker.address;
-    let name = faker.name;
-    let body = JSON.stringify({
-        name: name.firstName(),
-        type: name.jobType(),
-        address: address.streetName(),
-        city: address.city(),
-        state: address.state(),
-        zip: address.zipCode(),
-    });
+export const addStore = async (responseBody) => {
+    let body =JSON.stringify( omit(['id','services','createdAt','updatedAt'],responseBody));
     return await requestAndEvaluate({
         url: '/stores',
         requestOptions: {
@@ -58,13 +49,77 @@ export const addStore = async () => {
     });
 };
 
+export const deleteStore =async(response) => {
+
+    return await requestAndEvaluate({
+        url: `/stores/${response.response.id}`,
+        requestOptions: {
+            method: 'DELETE',
+            redirect: 'follow',
+        },
+    });
+}
+
 export const getAllStoreNames =async() => {
     const options = {
         method: 'GET',
         headers: {'Content-Type': 'application/json'}
     };
-    const apiResponse = await fetch(`http://localhost:3030/stores`, options);
-    const {data} = await apiResponse.json();
-    const storeNames = await Promise.all(map(async (element) => await element.name, data));
-    return storeNames;
+    const apiResponse = await (await fetch(`http://localhost:3030/stores`, options)).json();
+    return pipe(prop('data'), pluck('name'))(apiResponse);
 }
+
+export const selectStore = async (data, allStoreNames) => {
+    const getStoreFieldType =async(data) => {
+        console.log('entered method to get the field type of store')
+        const displayName = data.storeDisplayFieldName;
+        // console.log(`get attribute type from ${displayName}`)
+        const attribute = 'dropdownElement';
+        return attribute;
+    }
+    const getClientSpecificStoreName =  async (allStoreNames, data) => {
+        console.log('entered method to get number of stores to select as per client');
+        const noOfStoresToSelect = data.noOfStoresToSelect;
+        return allStoreNames.slice(0,noOfStoresToSelect);
+    }
+
+    const selectStoreValue = async() => {
+
+        await getStoreFieldType(data); //dropdown
+        const storeNamesToSelect = await getClientSpecificStoreName(allStoreNames, data);
+        for(var store=0; store<storeNamesToSelect;store++)
+        {
+            console.log(`clicked on store ${storeNamesToSelect[store]}`)
+        }
+        console.log('entered method to select the stores from dropdown');
+
+        return storeNamesToSelect;
+    }
+    const storesSelected = async() => {
+        console.log('entered method to get the stores selected in UI');
+
+        const dropDownTextBox = await getStoreFieldType(data); //dropdownTextBox
+        const dropDownValue= 'Store1;Store2' //dropDownTextBox.getText()
+        //await dropdownElement.getText();
+        return dropDownValue;
+    }
+
+
+    return {
+        selectStoreValue,
+        storesSelected
+    }
+
+}
+
+
+export const mergeWithSemicolon = (storeNamesToSelect) => {
+    const mergeData = storeNamesToSelect.join('; ')
+    console.log(mergeData);
+    return 'Store1;Store2';
+}
+
+
+
+
+

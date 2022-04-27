@@ -1,5 +1,5 @@
-import { ifElse, propEq } from 'ramda';
-import { request } from '../apiHelper/api.js';
+import {ifElse, propEq} from 'ramda';
+import {request} from '../apiHelper/api.js';
 import HTTPResponseError from '../exception/HTTPResponseError.js';
 
 
@@ -25,17 +25,17 @@ const evaluateApiResponses = ifElse(
     returnDataObject
 );
 
-export const requestAndEvaluate =  ({ url, requestOptions }) =>
+export const requestAndEvaluate = ({url, requestOptions}) =>
     request({
         url,
         requestOptions,
     }).then(evaluateApiResponses);
 
 
-export const returnResponse =  (response) =>
+export const returnResponse = (response) =>
     checkStatus(response);
 
-export const handleError = ({ response }) => ({
+export const handleError = ({response}) => ({
     error: true,
     response,
 });
