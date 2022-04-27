@@ -1,7 +1,7 @@
 # javascript-compare-fp
 
-**
-API-Playground**
+**API-Playground**
+
 https://github.com/BestBuy/api-playground
 
 Clone and npm install && npm start
